@@ -172,13 +172,8 @@ class PopulateFactory extends FixtureFactory {
 		}
 
 		if($obj->hasExtension(Versioned::class)) {
-			foreach($obj->getVersionedStages() as $stage) {
-				if($stage !== Versioned::DRAFT) {
-
-					$obj->writeToStage(Versioned::DRAFT);
-					$obj->publish(Versioned::DRAFT, $stage);
-				}
-			}
+			$obj->write();
+			$obj->publishSingle();
 
 			$obj->flushCache();
 		}
